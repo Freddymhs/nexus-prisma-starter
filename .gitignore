@@ -1,0 +1,13 @@
+# Directories
+node_modules/
+dist/
+coverage/
+out/
+prisma/migrations/
+
+# Files
+.DS_Store
+
+# enviroments
+.env
+.env.development
