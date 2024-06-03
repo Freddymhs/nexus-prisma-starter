@@ -1,36 +1,43 @@
 import { queryType } from "nexus";
-import { prisma } from "../../../database";
+import { Product, Profile, Sale, User } from "../../types";
 
-// Definición de la consulta Query
 export const Query = queryType({
   definition(t) {
     t.list.field("users", {
-      type: "User",
-      resolve: async () => {
-        const qt = await prisma.user.findMany();
-        console.log({ qt });
-        // return [
-        //   { id: 1, name: 'John', email: 'john@example.com' },
-        //   { id: 2, name: 'Alice', email: 'alice@example.com' },
-        // ];
+      type: User,
+      resolve: (todo, args, { prisma }) => {
+        return prisma.user.findMany();
+      },
+    });
+
+    t.list.field("profiles", {
+      type: Profile,
+      resolve: () => {
+        return [
+          { id: 1, bio: "Bio example", role: "ADMIN", userId: 1 },
+          { id: 2, bio: "Another bio example", role: "WORKER", userId: 2 },
+        ];
+      },
+    });
+
+    t.list.field("sales", {
+      type: Sale,
+      resolve: () => {
+        return [
+          { id: 1, amount: 100, productId: 1, userId: 1 },
+          { id: 2, amount: 150, productId: 2, userId: 2 },
+        ];
+      },
+    });
+
+    t.list.field("products", {
+      type: Product,
+      resolve: () => {
+        return [
+          { id: 1, name: "Product 1", price: 50 },
+          { id: 2, name: "Product 2", price: 75 },
+        ];
       },
     });
   },
 });
-
-// import { objectType } from "nexus";
-
-// // QUERIES Y MUTACIONES
-// const Query = objectType({
-//     name: "Query",
-//     definition(t) {
-//       t.list.field("allUsers", {
-//         type: "User",
-//         resolve: () => prisma.user.findMany(),
-//       });
-//       t.list.field("allPosts", {
-//         type: "Post",
-//         resolve: () => prisma.post.findMany(),
-//       });
-//     },
-//   });
