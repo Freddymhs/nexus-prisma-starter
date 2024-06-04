@@ -1,5 +1,5 @@
 {
-  "name": "nexus-starter",
+  "name": "backend-gestor",
   "version": "1.0.0",
   "description": "basic starter for nexus graphql api with express and prisma",
   "main": "src/index.ts",
